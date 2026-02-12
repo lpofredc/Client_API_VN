@@ -171,13 +171,13 @@ class DownloadVn:
                 )
                 # Call backend to store results
                 self._backend.store(self._api_instance.controler, str(i), items_dict)
-        except self._api_instance.HTTPError:
+        except Exception as e:
             self._backend.log(
                 self._config.site,
                 self._api_instance.controler,
                 self._api_instance.transfer_errors,
                 self._api_instance.http_status,
-                _("HTTP error during download"),
+                _(f"HTTP error during download {e}"),
             )
 
         return None
@@ -284,14 +284,15 @@ class Fields(DownloadVn):
                     )
                     # Call backend to store groups of fields
                     self._backend.store("field_details", str(i), field_details)
-        except self._api_instance.HTTPError:
+        except Exception as e:
             self._backend.log(
                 self._config.site,
                 self._api_instance.controler,
                 self._api_instance.transfer_errors,
                 self._api_instance.http_status,
-                _("HTTP error during download"),
+                _(f"HTTP error during download {e}"),
             )
+
 
         return None
 
@@ -477,14 +478,15 @@ class Observations(DownloadVn):
                             str(id_taxo_group) + "_1",
                             items_dict,
                         )
-        except self._api_instance.HTTPError:
+        except Exception as e:
             self._backend.log(
                 self._config.site,
                 self._api_instance.controler,
                 self._api_instance.transfer_errors,
                 self._api_instance.http_status,
-                _("HTTP error during download"),
+                _(f"HTTP error during download {e}"),
             )
+
 
         return None
 
@@ -650,14 +652,15 @@ class Observations(DownloadVn):
                         seq += 1
                         end_date = start_date
                         delta_days = int(pid(nb_obs))
-        except self._api_instance.HTTPError:
+        except Exception as e:
             self._backend.log(
                 self._config.site,
                 self._api_instance.controler,
                 self._api_instance.transfer_errors,
                 self._api_instance.http_status,
-                _("HTTP error during download"),
+                _(f"HTTP error during download {e}"),
             )
+
 
         return None
 
@@ -866,14 +869,15 @@ class Observations(DownloadVn):
                             total_size(items_dict),
                             timing,
                         )
-            except self._api_instance.HTTPError:
+            except Exception as e:
                 self._backend.log(
                     self._config.site,
                     self._api_instance.controler,
                     self._api_instance.transfer_errors,
                     self._api_instance.http_status,
-                    _("HTTP error during download"),
+                    _(f"HTTP error during download {e}"),
                 )
+
 
             # Process deletes
             if len(deleted) > 0:
